@@ -4,27 +4,14 @@ import style from "./Button.module.css";
 // тип пропсов обычной кнопки, children в котором храниться название кнопки там уже описан
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-type SuperButtonPropsType = DefaultButtonPropsType & {
-    red?: boolean
+type ButtonPropsType = DefaultButtonPropsType & {
+
 }
 
-export const Button: React.FC<SuperButtonPropsType> = (
-    {
-        red, className,
-        ...restProps// все остальные пропсы попадут в объект restProps, там же будет children
-    }
-) => {
-    // const finalClassName = red ? style.red : style.default;
-
-    // return (
-    //     <button
-    //         className={finalClassName}
-    //         {...restProps} // отдаём кнопке остальные пропсы если они есть (children там внутри)
-    //     />
-    // );
+export const Button: React.FC<ButtonPropsType> = (props) => {
 
     return <div className={style.container}>
-        <button className={style.button}>Button</button>
+        <button className={style.button}>{props.children}</button>
     </div>
 }
 

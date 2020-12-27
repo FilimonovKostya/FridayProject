@@ -1,74 +1,5 @@
-/*.error{*/
-/*    color: red;*/
-/*}*/
-
-/*.errorText{*/
-/*    text-align: center;*/
-/*    font-size: 18px;*/
-/*}*/
-
-/*.textInput {*/
-/*    position: relative;*/
-/*}*/
-/*.superInput{*/
-/*    display: inline-block;*/
-/*    width: 500px;*/
-/*    height: 40px;*/
-/*    box-sizing: border-box;*/
-/*    outline: none;*/
-/*    border-radius: 15px;*/
-/*    padding: 10px 10px 10px 100px;*/
-/*    transition: all 0.1s ease-out;*/
-/*}*/
-
-/*.rightInput{*/
-/*    border: 2px solid #44ff44;*/
-/*}*/
-
-/*.errorInput{*/
-/*    border: 2px solid red;*/
-/*}*/
-
-/*input[type="text"] + label{*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    bottom: 0;*/
-/*    height: 40px;*/
-/*    line-height: 40px;*/
-/*    color: white;*/
-/*    border-radius: 15px 0 0 15px;*/
-/*    padding: 0 10px;*/
-/*    background: #E03616;*/
-/*    transform: translateZ(0) translateX(0);*/
-/*    transition: all 0.3s ease-in;*/
-/*    transition-delay: 0.2s;*/
-
-/*}*/
-
-/*input[type="text"]:focus + label{*/
-/*    transform: translateY(-120%) translateX(0%);*/
-/*    border-radius: 15px 0 0 15px;*/
-/*    transition: all 0.1s ease-out;*/
-/*}*/
-
-/*input[type="text"]:focus{*/
-/*    padding: 10px;*/
-/*    transition: all 0.3s ease-out;*/
-/*    transition-delay: 0.2s;*/
-/*}*/
-
-
 :focus {
     outline: none;
-}
-
-input[type="text"] {
-    font: 15px/24px "Lato", Arial, sans-serif;
-    color: #333;
-    width: 100%;
-    box-sizing: border-box;
-    letter-spacing: 1px;
 }
 
 .inputContainer {
@@ -78,16 +9,19 @@ input[type="text"] {
 
 }
 
-.effect16,
-.effect-17,
-.effect-18 {
+.input{
     border: 0;
     padding: 4px 0;
     border-bottom: 1px solid #ccc;
     background-color: transparent;
+    font: 15px/24px "Lato", Arial, sans-serif;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 1px;
 }
 
-.effect16 ~ .focusBorder {
+.input ~ .focusBorder {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -97,29 +31,10 @@ input[type="text"] {
     transition: 0.4s;
 }
 
-.effect16:focus ~ .focusBorder,
-.has-content.effect16 ~ .focusBorder {
+.input:focus ~ .focusBorder,
+.has-content.input ~ .focusBorder {
     width: 100%;
     transition: 0.4s;
     margin-top: 20px;
-}
-
-.effect16 ~ label {
-
-    position: absolute;
-    left: 0;
-    width: 100%;
-    top: 9px;
-    color: #aaa;
-    transition: 0.3s;
-    z-index: -1;
-    letter-spacing: 0.5px;
-}
-
-.effect16:focus ~ label, .has-content.effect16 ~ label {
-    top: -16px;
-    font-size: 12px;
-    color: #3399FF;
-    transition: 0.3s;
 }
 
