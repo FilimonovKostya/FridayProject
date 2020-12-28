@@ -10,9 +10,12 @@ type CheckboxPropsType = DefaultInputPropsType & {
 
 const Checkbox: React.FC<CheckboxPropsType> = () => {
 
+    const [checked,setCheked] = React.useState<boolean>(false)
+    const onChangeHandler = () => setCheked(!checked)
+
     return <div className={style.container}>
         <label className={style.pureMaterialCheckbox}>
-            <input type={"checkbox"} className={style.input} checked={ true} />
+            <input type={"checkbox"} className={style.input} checked={checked} onChange={onChangeHandler} />
             <span className={style.spanClassName}>  Checkbox  </span>
         </label>
     </div>
