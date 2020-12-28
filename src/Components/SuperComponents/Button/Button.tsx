@@ -11,7 +11,7 @@ type ButtonPropsType = DefaultButtonPropsType & {
 export const Button: React.FC<ButtonPropsType> = (props) => {
 
     return <div className={style.container}>
-        <button className={style.button}>{props.children}</button>
+        <button className={style.button}>Button</button>
     </div>
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './NotFound.module.css'
-import Button from "../Button/Button";
+import Button from "../SuperComponents/Button/Button";
 
 type NotFoundPropsType = {}
 
