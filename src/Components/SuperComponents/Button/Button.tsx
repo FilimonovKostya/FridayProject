@@ -1,12 +1,8 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
+import React from "react";
 import style from "./Button.module.css";
 
-// тип пропсов обычной кнопки, children в котором храниться название кнопки там уже описан
-type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-type ButtonPropsType = DefaultButtonPropsType & {
-
-}
+type ButtonPropsType = {}
 
 export const Button: React.FC<ButtonPropsType> = (props) => {
 
