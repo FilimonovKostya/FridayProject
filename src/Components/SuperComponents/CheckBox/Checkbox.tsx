@@ -14,6 +14,8 @@ const Checkbox: React.FC<CheckboxPropsType> = () => {
             <input type={"checkbox"} className={style.input} checked={checked} onChange={onChangeHandler}/>
             <span className={style.spanClassName}>  Checkbox  </span>
         </label>
+
+
     </div>
 }
 
