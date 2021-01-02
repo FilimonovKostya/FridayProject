@@ -10,16 +10,27 @@ import Profile from "./Components/Profile/Profile";
 import Password from "./Components/Passwords/Password";
 import PasswordRecovery from "./Components/Passwords/PasswordRecovery/PasswordRecovery";
 
+const path = {
+    login: '/login',
+    reg: '/registration',
+    password: '/newPassword',
+    passRec: '/passwordRecovery',
+    profile: '/profile',
+    notFound: '/notFound',
+    allComponents: '/allComponents',
+
+}
+
 function App() {
     return <div>
         <NavBar/>
-        <Route path={'/login'} exact component={() => <Login/>}/>
-        <Route path={'/registration'} exact component={() => <Registration/>}/>
-        <Route path={'/newPassword'} exact component={() => <Password/>}/>
-        <Route path={'/passwordRecovery'} exact component={() => <PasswordRecovery/>}/>
-        <Route path={'/profile'} exact component={() => <Profile/>}/>
-        <Route path={'/notFound'} exact render={() => <NotFound/>}/>
-        <Route path={'/allComponents'} exact render={() => <AllComponents/>}/>
+        <Route path={path.login} exact component={() => <Login/>}/>
+        <Route path={path.reg} exact component={() => <Registration/>}/>
+        <Route path={path.password} exact component={() => <Password/>}/>
+        <Route path={path.passRec} exact component={() => <PasswordRecovery/>}/>
+        <Route path={path.profile} exact component={() => <Profile/>}/>
+        <Route path={path.notFound} exact render={() => <NotFound/>}/>
+        <Route path={path.allComponents} exact render={() => <AllComponents/>}/>
     </div>
 }
 
