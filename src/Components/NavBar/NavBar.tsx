@@ -1,6 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import style from './NavBar.module.css'
+import {path} from "../../App";
 
 type NavBarPropsType = {}
 
@@ -14,13 +15,13 @@ const NavBar: React.FC<NavBarPropsType> = (props) => {
         </label>
         <div className={style.sidebarMenu}>
             <ul className={style.sidebarMenuInner}>
-                <li><NavLink to={'/login'}> LogIn </NavLink></li>
-                <li><NavLink to={'/registration'}> Registration </NavLink></li>
-                <li><NavLink to={'/passwordRecovery'}> Password recovery</NavLink></li>
-                <li><NavLink to={'/newPassword'}> New password </NavLink></li>
-                <li><NavLink to={'/profile'}> Profile </NavLink></li>
-                <li><NavLink to={'/notFound'}> 404 </NavLink></li>
-                <li><NavLink to={'/allComponents'}> All components </NavLink></li>
+                <li><NavLink to={path.LOGIN}> LogIn </NavLink></li>
+                <li><NavLink to={path.REG}> Registration </NavLink></li>
+                <li><NavLink to={path.PASS_REC}> Password recovery</NavLink></li>
+                <li><NavLink to={path.PASSWORD}> New password </NavLink></li>
+                <li><NavLink to={path.PROFILE}> Profile </NavLink></li>
+                <li><NavLink to={'/404'}> 404 </NavLink></li>
+                <li><NavLink to={path.ALL_COMPONENTS}> All components </NavLink></li>
             </ul>
         </div>
         <div className={`${style.main} ${style.center}`}>
