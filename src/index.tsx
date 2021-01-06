@@ -9,6 +9,7 @@ import {Provider} from "react-redux";
 
 ReactDOM.render(
     <React.StrictMode>
+        {/*HashRouter используем для статических серверов типо GH-pages. BrowserRouter для сервера который отвечает на запросы*/}
         <HashRouter>
             <Provider store={store}>
                 <App/>

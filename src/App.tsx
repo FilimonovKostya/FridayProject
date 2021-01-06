@@ -17,12 +17,12 @@ export const path = {
     PASS_REC: '/passwordRecovery',
     PROFILE: '/profile',
     ALL_COMPONENTS: '/allComponents',
-
 }
 
 function App() {
     return <div>
         <NavBar/>
+        {/* Switch нужен чтобы в url адрессе отображалось только то что нужно(＾▽＾)*/}
         <Switch>
             <Route path={path.LOGIN} exact render={() => <Login/>}/>
             <Route path={path.REG} exact render={() => <Registration/>}/>
@@ -30,6 +30,7 @@ function App() {
             <Route path={path.PASS_REC} exact render={() => <PasswordRecovery/>}/>
             <Route path={path.PROFILE} exact render={() => <Profile/>}/>
             <Route path={path.ALL_COMPONENTS} exact render={() => <AllComponents/>}/>
+            {/*Отрисуется в случае если не один url не подойдет (´｡• ᵕ •｡)*/}
             <Route render={() => <NotFound/>}/>
         </Switch>
     </div>
