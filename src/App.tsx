@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import NotFound from "./Components/NotFound/NotFound";
 import NavBar from "./Components/NavBar/NavBar";
-import {Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import AllComponents from "./AllComponents";
 import Login from "./Components/Login/Login";
 import Registration from "./Components/Registration/Registration";
@@ -31,7 +31,8 @@ function App() {
             <Route path={path.PROFILE} exact render={() => <Profile/>}/>
             <Route path={path.ALL_COMPONENTS} exact render={() => <AllComponents/>}/>
             {/*Отрисуется в случае если не один url не подойдет (´｡• ᵕ •｡)*/}
-            <Route render={() => <NotFound/>}/>
+            <Route path={'/404'} render={() => <NotFound/>}/>
+            <Redirect from={'*'} to={'/404'}/>
         </Switch>
     </div>
 }
