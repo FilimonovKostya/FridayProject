@@ -25,4 +25,6 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     </div>
 };
 
+// Тестовый коммит что ничего не сломал в мастере
+
 export default Registration;
