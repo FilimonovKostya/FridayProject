@@ -18,7 +18,7 @@ export const path = {
     PROFILE: '/profile',
     ALL_COMPONENTS: '/allComponents',
 }
-// Тестовый комментарий
+
 function App() {
     return <div>
         <NavBar/>
@@ -38,3 +38,5 @@ function App() {
 }
 
 export default App;
+
+// Создал ветку - тест
