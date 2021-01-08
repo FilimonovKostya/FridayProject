@@ -18,7 +18,7 @@ export const path = {
     PROFILE: '/profile',
     ALL_COMPONENTS: '/allComponents',
 }
-
+// Тестовый комментарий
 function App() {
     return <div>
         <NavBar/>
