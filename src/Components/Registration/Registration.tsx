@@ -6,6 +6,8 @@ import {path} from "../../App";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../Redux/store";
 import {RegistrationRequestType, RegistrationResponseType, registrationTC} from "../../Redux/reducers/registrationReducer";
+import {Input} from '../SuperComponents/Input/Input';
+import Button from "../SuperComponents/Button/Button";
 
 const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
@@ -41,10 +43,10 @@ const Registration: React.FC<RegistrationPropsType> = () => {
 
     return <div className={style.wrapper}>
         <h1>Registration</h1>
-        <form>
-            <div><input type="text" placeholder={'Email'} value={email} onChange={onChangeHandlerEmail}/></div>
-            <div><input type="text" placeholder={'Password'} value={password} onChange={onChangeHandlerPassword}/></div>
-            <button onClick={onClickHandler}> Submit</button>
+        <form className={style.registrForm}>
+            <Input type={'text'} value={email} onChange={onChangeHandlerEmail} placeholder={'Email'}/>
+            <Input type={'password'} value={password} onChange={onChangeHandlerPassword} placeholder={'Password'}/>
+            <Button onClick={onClickHandler}> Registration </Button>
         </form>
     </div>
 };

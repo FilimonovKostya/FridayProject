@@ -1,13 +1,15 @@
-import React from "react";
+import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 import style from "./Button.module.css";
 
 
-type ButtonPropsType = {}
+type DefaultInputPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-export const Button: React.FC<ButtonPropsType> = (props) => {
+type ButtonPropsType = DefaultInputPropsType & {}
+
+export const Button: React.FC<ButtonPropsType> = ({children,onClick}) => {
 
     return <div className={style.container}>
-        <button className={style.button}>{props.children}</button>
+        <button className={style.button} onClick={onClick}>{children}</button>
     </div>
 }
 
