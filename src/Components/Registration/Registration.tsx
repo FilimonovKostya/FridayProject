@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import style from "./Registration.module.css";
 import axios from "axios";
 import {Redirect} from "react-router-dom";
@@ -9,11 +9,11 @@ const instance = axios.create({
     withCredentials: true
 })
 
+//Types
 type RegistrationRequestType = {
     email: string
     password: string
 }
-
 type RegistrationResponseType = {
     addedUser: {
         created: string
@@ -28,7 +28,6 @@ type RegistrationResponseType = {
         _id: string
     }
 }
-
 type ErrorResponseType = {
     response: {
         data: {
@@ -38,51 +37,38 @@ type ErrorResponseType = {
         }
     }
 }
+type RegistrationPropsType = {}
 
-
+//API
 const registrationAPI = () => {
     return {
-        getTime: (time: string) => {
-            return instance.get(`ping?frontTime=${time}`)
-        },
         registration: (dataReg: RegistrationRequestType) => {
             return instance.post<RegistrationResponseType>(`auth/register`, {...dataReg})
         }
     }
 }
 
-type RegistrationPropsType = {}
-
 const Registration: React.FC<RegistrationPropsType> = () => {
-    const [time, setTime] = useState<string>(Date.now().toString())
-    const [ping, setPing] = useState<number>(0)
     let [isRedirectProfile, setIsRedirectProfile] = useState<boolean>(false)
-    const email = 'konstantinfilimonou@gmail.com'
-    const password = 'KOSTYA1234END.'
+    const email = 'konstantinfilimonou@gmail.com' // Мои данные для теста
+    const password = 'KOSTYA1234END.'// Мои данные для теста
 
-    useEffect(() => {
-        registrationAPI().getTime(time)
-            .then(res => {
-                setTime(time)
-                setPing(res.data.ping)
-            })
-    }, [time])
 
     const onClickHandler = () => {
         registrationAPI().registration({email, password})
             .then((res) => {
                 const dataAboutUser = res.data.addedUser
-                if(Object.keys(dataAboutUser).length === 10){
+                // Если не происходит редирект после того как зарегались проблема ниже . Этот код считает длинну объекта ,всего там 10 ключей. Смотрел
+                if (Object.keys(dataAboutUser).length === 10) {
                     console.log('Успешно зареганы')
+                    setIsRedirectProfile(!isRedirectProfile)
                 }
             })
             .catch((error: ErrorResponseType) => {
                 if (error.response.data.in === 'createUser') {
-                    console.log('Ok')
-                    setIsRedirectProfile(!isRedirectProfile)
+                    alert('Уже зареганы')
                 }
             })
-
     }
 
     if (isRedirectProfile) {
@@ -91,12 +77,9 @@ const Registration: React.FC<RegistrationPropsType> = () => {
 
     return <div className={style.wrapper}>
         <h1>Registration</h1>
-        <h3>Test Ping Request : {ping}</h3>
         <form>
-            <div><input type="text" placeholder={'Enter email'} value={email} onChange={() => {
-            }}/></div>
-            <div><input type="text" placeholder={'Enter password'} value={password} onChange={() => {
-            }}/></div>
+            <div><input type="text" placeholder={'Enter email ---konstantinfilimonou@gmail.com'}/></div>
+            <div><input type="text" placeholder={'Enter password ---KOSTYA1234END'}/></div>
             <button onClick={onClickHandler}> Submit</button>
         </form>
     </div>
