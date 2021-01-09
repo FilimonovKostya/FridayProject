@@ -1,18 +1,43 @@
 import {Dispatch} from "redux";
-import {ErrorResponseType, registrationAPI} from "../../Components/Registration/Registration";
+import {registrationAPI} from "../../Components/Registration/Registration";
 
 //Types
 type ActionsType = ReturnType<typeof setRegistrationAC> | ReturnType<typeof setRedirectProfileAC>
-type RegistrationRequestType = {
-    password: string
-    email: string
-}
 type InitialStateType = {
     password: string
     email: string
     isLoading: boolean
     isRedirect: boolean
 }
+export type RegistrationRequestType = {
+    email: string
+    password: string
+}
+export type RegistrationResponseType = {
+    addedUser: {
+        created: string
+        email: string
+        isAdmin: boolean
+        name: string
+        publicCardPacksCount: number
+        rememberMe: boolean
+        updated: string
+        verified: boolean
+        __v: number
+        _id: string
+    }
+}
+export type ErrorResponseType = {
+    response: {
+        data: {
+            email: string
+            error: string
+            in: string
+        }
+    }
+}
+
+//InitialState
 const initialState: InitialStateType = {
     password: '',
     email: '',
@@ -20,6 +45,7 @@ const initialState: InitialStateType = {
     isRedirect: false
 }
 
+//Reducer
 export const registrationReducer = (state = initialState, actions: ActionsType): InitialStateType => {
     switch (actions.type) {
         case 'SET-REGISTRATION':
@@ -47,7 +73,6 @@ export const registrationTC = (regData: RegistrationRequestType) => (dispatch: D
                 dispatch(setRegistrationAC({...regData}))
                 dispatch(setRedirectProfileAC(true))
             }
-
         })
         .catch((error: ErrorResponseType) => {
             if (error.response.data.in === 'createUser') {
