@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from "./Registration.module.css";
 import axios from "axios";
 import {Redirect} from "react-router-dom";
 import {path} from "../../App";
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "../../Redux/store";
+import {registrationTC} from "../../Redux/reducers/registrationReducer";
 
 const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
@@ -14,7 +17,7 @@ type RegistrationRequestType = {
     email: string
     password: string
 }
-type RegistrationResponseType = {
+export type RegistrationResponseType = {
     addedUser: {
         created: string
         email: string
@@ -28,7 +31,7 @@ type RegistrationResponseType = {
         _id: string
     }
 }
-type ErrorResponseType = {
+export type ErrorResponseType = {
     response: {
         data: {
             email: string
@@ -40,7 +43,7 @@ type ErrorResponseType = {
 type RegistrationPropsType = {}
 
 //API
-const registrationAPI = () => {
+export const registrationAPI = () => {
     return {
         registration: (dataReg: RegistrationRequestType) => {
             return instance.post<RegistrationResponseType>(`auth/register`, {...dataReg})
@@ -49,26 +52,14 @@ const registrationAPI = () => {
 }
 
 const Registration: React.FC<RegistrationPropsType> = () => {
-    let [isRedirectProfile, setIsRedirectProfile] = useState<boolean>(false)
-    const email = 'konstantinfilimonou@gmail.com' // Мои данные для теста
-    const password = 'KOSTYA1234END.'// Мои данные для теста
+    const dispatch = useDispatch()
+    const email = useSelector<RootStateType, string>(state => state.registration.email)
+    const password = useSelector<RootStateType, string>(state => state.registration.password)
+    const isRedirectProfile = useSelector<RootStateType, boolean>(state => state.registration.isRedirect)
 
 
     const onClickHandler = () => {
-        registrationAPI().registration({email, password})
-            .then((res) => {
-                const dataAboutUser = res.data.addedUser
-                // Если не происходит редирект после того как зарегались проблема ниже . Этот код считает длинну объекта ,всего там 10 ключей. Смотрел
-                if (Object.keys(dataAboutUser).length === 10) {
-                    console.log('Успешно зареганы')
-                    setIsRedirectProfile(!isRedirectProfile)
-                }
-            })
-            .catch((error: ErrorResponseType) => {
-                if (error.response.data.in === 'createUser') {
-                    alert('Уже зареганы')
-                }
-            })
+        dispatch(registrationTC({email, password}))
     }
 
     if (isRedirectProfile) {
