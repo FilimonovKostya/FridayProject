@@ -20,7 +20,7 @@ const NavBar: React.FC<NavBarPropsType> = (props) => {
                 <li><NavLink to={path.PASS_REC}> Password recovery</NavLink></li>
                 <li><NavLink to={path.PASSWORD}> New password </NavLink></li>
                 <li><NavLink to={path.PROFILE}> Profile </NavLink></li>
-                <li><NavLink to={path.ALL_COMPONENTS}> All components </NavLink></li>
+                <li><NavLink to={'/'}> All components </NavLink></li>
             </ul>
         </div>
         <div className={`${style.main} ${style.center}`}>
