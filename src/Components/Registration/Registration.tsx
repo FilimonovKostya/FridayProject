@@ -1,7 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import style from "./Registration.module.css";
-import {getTimeAPI} from "../../Api/myTestApi";
+import axios from "axios";
 
+const instance = axios.create({
+    baseURL: 'http://localhost:7542/2.0/',
+    withCredentials:true
+})
+
+const getTimeAPI = (time: string) => {
+    return instance.get(`ping?frontTime=${time}`)
+}
 
 type RegistrationPropsType = {}
 
@@ -24,7 +32,5 @@ const Registration: React.FC<RegistrationPropsType> = () => {
         <h3>Test Ping Request : {ping}</h3>
     </div>
 };
-
-// Тестовый коммит что ничего не сломал в мастере
 
 export default Registration;
