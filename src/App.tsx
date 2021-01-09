@@ -13,7 +13,7 @@ import PasswordRecovery from "./Components/Passwords/PasswordRecovery/PasswordRe
 export const path = {
     LOGIN: '/login',
     REG: '/registration',
-    PASSWORD: '/newPassword',
+    PASSWORD: '/newPassword/',
     PASS_REC: '/passwordRecovery',
     PROFILE: '/profile',
     ALL_COMPONENTS: '/allComponents',
@@ -24,6 +24,7 @@ function App() {
         <NavBar/>
         {/* Switch нужен чтобы в url адрессе отображалось только то что нужно(＾▽＾)*/}
         <Switch>
+            <Route exact path="/" render={() => <Redirect to={path.PASS_REC}/>}/>
             <Route path={path.LOGIN} exact render={() => <Login/>}/>
             <Route path={path.REG} exact render={() => <Registration/>}/>
             <Route path={path.PASSWORD} exact render={() => <Password/>}/>
@@ -31,8 +32,8 @@ function App() {
             <Route path={path.PROFILE} exact render={() => <Profile/>}/>
             <Route path={path.ALL_COMPONENTS} exact render={() => <AllComponents/>}/>
             {/*Отрисуется в случае если не один url не подойдет (´｡• ᵕ •｡)*/}
-            <Route path={'/404'} render={() => <NotFound/>}/>
-            <Redirect from={'*'} to={'/404'}/>
+            <Route render={() => <NotFound/>}/>
+            {/*<Redirect from={'*'} to={'/404'}/>*/}
         </Switch>
     </div>
 }
