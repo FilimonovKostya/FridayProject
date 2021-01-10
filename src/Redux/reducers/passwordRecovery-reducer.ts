@@ -11,10 +11,9 @@ export type InferActionsTypes<T extends { [key: string]: (...args: any) => any }
 export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, RootStateType, unknown, A>
 
 //Get auto types
-export type InitializeStateType = typeof initializeState
 type ActionsType = InferActionsTypes<typeof actions>
 
-
+//Response type
 export type APIResponseType<D = {}> = {
     data: D
     statusText: string
@@ -48,10 +47,11 @@ export const recoveryAPI = {
 }
 
 let initializeState = {
-    error: '',
     status: '',
     isFetching: false
 }
+
+export type InitializeStateType = typeof initializeState
 
 export const passwordRecoveryReducer = (state: InitializeStateType = initializeState, action: ActionsType): InitializeStateType => {
     switch (action.type) {
@@ -69,6 +69,7 @@ export const passwordRecoveryReducer = (state: InitializeStateType = initializeS
     }
 }
 
+//Actions object
 const actions = {
     setStatus: (status: string) => ({
         type: 'FP/RECOVERY/SET-STATUS',
