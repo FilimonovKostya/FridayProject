@@ -3,21 +3,21 @@ import style from './ErrorSnackBar.module.css'
 
 const ErrorSnackBar = () => {
 
-    const [toggleActive, setToggleActive] = useState(style.active)
-    const [closeModalWindow, setCloseModalWindow] = useState(style.notActive)
-    const [toggleClass, setToggleClass] = useState(false)
+    const [classActive, setClassActive] = useState(style.active)
+    const [classNotActive, setClassNotActive] = useState(style.notActive)
+    const [isActiveClass, setIsActiveClass] = useState(false)
 
 
     return <div>
         <div className={style.centered}>
-            <button className={style.btn} onClick={() => setToggleClass(!toggleClass)}>
+            <button className={style.btn} onClick={() => setIsActiveClass(!isActiveClass)}>
                 toggle
             </button>
         </div>
-        <div className={`${style.notification} ${toggleClass ? toggleActive : ''}`}>
+        <div className={`${style.notification} ${isActiveClass ? classActive : ''}`}>
             <div className={style.text}> Something Error</div>
-            <div className={`${style.close} ${toggleClass ? closeModalWindow : ''}`}>
-                <div className={style.text} onClick={() => setToggleClass(!toggleClass)}> X</div>
+            <div className={`${style.close} ${isActiveClass ? classNotActive : ''}`}>
+                <div className={style.text} onClick={() => setIsActiveClass(!isActiveClass)}> X</div>
             </div>
         </div>
     </div>
