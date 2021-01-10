@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 import {path} from "../../../App";
 import {NavLink} from 'react-router-dom';
@@ -18,6 +18,10 @@ const PasswordRecovery: React.FC = () => {
     const isFetching = useSelector<RootStateType, boolean>((state) => state.passwordRecovery.isFetching)
 
     const dispatch = useDispatch()
+
+    const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
+    }
 
     const sendEmail = () => {
         dispatch(sendRecoveryEmail(value))
@@ -39,7 +43,7 @@ const PasswordRecovery: React.FC = () => {
                             <input type="email"
                                    value={value}
                                    className={s.input}
-                                   onChange={(e) => setValue(e.currentTarget.value)}/>
+                                   onChange={inputHandler}/>
                             <button onClick={sendEmail}
                                     disabled={isFetching}
                                     className={s.btn}>Send
