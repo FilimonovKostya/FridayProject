@@ -7,10 +7,10 @@ type InputTextPropsType = DefaultInputPropsType & {
 
 };
 
-export const Input: React.FC<InputTextPropsType> = ({placeholder,type,onChange}) => {
+export const Input: React.FC<InputTextPropsType> = ({placeholder,type,onChange,value}) => {
 
     return <div className={style.inputContainer}>
-        <input className={style.input} type={type} onChange={onChange} placeholder={placeholder}/>
+        <input className={style.input} type={type} value={value} onChange={onChange} placeholder={placeholder}/>
         <span className={style.focusBorder}/>
     </div>
 }

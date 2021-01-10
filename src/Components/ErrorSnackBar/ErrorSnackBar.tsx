@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import style from './ErrorSnackBar.module.css'
 
-const ErrorSnackBar = () => {
+type ErrorSnackBarPropsType = {
+    errorMessage: string
+}
+
+const ErrorSnackBar = (props:ErrorSnackBarPropsType) => {
 
     const [classActive, setClassActive] = useState(style.active)
     const [classNotActive, setClassNotActive] = useState(style.notActive)
@@ -10,12 +14,12 @@ const ErrorSnackBar = () => {
 
     return <div>
         <div className={style.centered}>
-            <button className={style.btn} onClick={() => setIsActiveClass(!isActiveClass)}> Show Error </button>
+            <button className={style.btn} onClick={() => setIsActiveClass(!isActiveClass)}> Show Error</button>
         </div>
         <div className={`${style.notification} ${isActiveClass ? classActive : ''}`}>
-            <div className={style.text}> Something Error</div>
+            <div className={style.text}> {props.errorMessage} </div>
             <div className={`${style.close} ${isActiveClass ? classNotActive : ''}`}>
-                <div className={style.text} onClick={() => setIsActiveClass(!isActiveClass)}> X</div>
+                <div className={style.text} onClick={() => setIsActiveClass(!isActiveClass)}>X</div>
             </div>
         </div>
     </div>

@@ -2,12 +2,16 @@ import {Dispatch} from "redux";
 import {registrationAPI} from "../../Components/Registration/Registration";
 
 //Types
-type ActionsType = ReturnType<typeof setRegistrationAC> | ReturnType<typeof setRedirectProfileAC> | ReturnType<typeof setRegistrationStatusAC>
+type ActionsType = ReturnType<typeof setRegistrationAC>
+    | ReturnType<typeof setRedirectProfileAC>
+    | ReturnType<typeof setRegistrationStatusAC>
+    | ReturnType<typeof setRegistrationErrorAC>
 type InitialStateType = {
     password: string
     email: string
     isLoading: boolean
     isRedirect: boolean
+    error: string | null
 }
 export type RegistrationRequestType = {
     email: string
@@ -30,19 +34,24 @@ export type RegistrationResponseType = {
 export type ErrorResponseType = {
     response: {
         data: {
-            email: string
+            emailRegExp?: {}
             error: string
+            email?: string
             in: string
+            isEmailValid?: boolean
+            isPassValid?: boolean
+            passwordRegExp?: string
         }
     }
 }
 
 //InitialState
 const initialState: InitialStateType = {
-    password: 'KOSTYA1234END.',
-    email: 'xranitelinadejd@gmail.com',
+    password: '',
+    email: '',
     isLoading: false,
-    isRedirect: false
+    isRedirect: false,
+    error: null
 }
 
 //Reducer
@@ -54,6 +63,8 @@ export const registrationReducer = (state = initialState, actions: ActionsType):
             return {...state, isRedirect: actions.isRedirect}
         case "SET-REGISTRATION-STATUS":
             return {...state, isLoading: actions.isLoading}
+        case "SET-REGISTRATION-ERROR":
+            return {...state, error: actions.error}
         default:
             return state
     }
@@ -66,6 +77,8 @@ export const setRedirectProfileAC = (isRedirect: boolean) => ({type: 'SET-REDIRE
 
 export const setRegistrationStatusAC = (isLoading: boolean) => ({type: 'SET-REGISTRATION-STATUS', isLoading} as const)
 
+export const setRegistrationErrorAC = (error: string | null) => ({type: 'SET-REGISTRATION-ERROR', error} as const)
+
 //Thunk
 export const registrationTC = (regData: RegistrationRequestType) => (dispatch: Dispatch<ActionsType>) => {
     registrationAPI().registration({...regData})
@@ -74,17 +87,24 @@ export const registrationTC = (regData: RegistrationRequestType) => (dispatch: D
             const dataAboutUser = res.data.addedUser
             // Если не происходит редирект после того как зарегались проблема ниже . Этот код считает длинну объекта ,всего там 10 ключей. Смотрел
             if (Object.keys(dataAboutUser).length === 10) {
-                console.log('Успешно зареганы')
                 dispatch(setRegistrationAC({...regData}))
                 dispatch(setRedirectProfileAC(true))
                 dispatch(setRegistrationStatusAC(false))
             }
         })
         .catch((error: ErrorResponseType) => {
+            dispatch(setRegistrationStatusAC(true))
             if (error.response.data.in === 'createUser') {
-                //знаю что никаких сайдэффектов ,потом исправлю ,чисто для проверки
-                console.log('Уже зареганы или ничо не ввели ')
-                dispatch(setRegistrationStatusAC(true))
+                dispatch(setRegistrationErrorAC(error.response.data.error))
+                dispatch(setRegistrationStatusAC(false))
+            }
+            if (!error.response.data.isEmailValid) {
+                dispatch(setRegistrationErrorAC(error.response.data.error))
+                dispatch(setRegistrationStatusAC(false))
+            }
+            if (!error.response.data.isPassValid) {
+                error.response.data.passwordRegExp && dispatch(setRegistrationErrorAC(error.response.data.passwordRegExp))
+                dispatch(setRegistrationStatusAC(false))
             }
         })
 }
