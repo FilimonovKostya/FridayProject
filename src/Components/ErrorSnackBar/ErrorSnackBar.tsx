@@ -10,9 +10,7 @@ const ErrorSnackBar = () => {
 
     return <div>
         <div className={style.centered}>
-            <button className={style.btn} onClick={() => setIsActiveClass(!isActiveClass)}>
-                toggle
-            </button>
+            <button className={style.btn} onClick={() => setIsActiveClass(!isActiveClass)}> Show Error </button>
         </div>
         <div className={`${style.notification} ${isActiveClass ? classActive : ''}`}>
             <div className={style.text}> Something Error</div>
