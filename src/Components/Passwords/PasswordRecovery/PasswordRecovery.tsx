@@ -18,7 +18,6 @@ const PasswordRecovery: React.FC<PasswordRecoveryPropsType> = () => {
     const dispatch = useDispatch()
 
     const sendEmail = () => {
-        debugger
         dispatch(sendRecoveryEmail(value))
     }
 

@@ -13,7 +13,7 @@ import PasswordRecovery from "./Components/Passwords/PasswordRecovery/PasswordRe
 export const path = {
     LOGIN: '/login',
     REG: '/registration',
-    PASSWORD: '/newPassword/',
+    PASSWORD: '/newPassword/:token?',
     PASS_REC: '/passwordRecovery',
     PROFILE: '/profile',
     ALL_COMPONENTS: '/allComponents',

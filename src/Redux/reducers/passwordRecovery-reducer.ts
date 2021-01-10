@@ -14,12 +14,8 @@ export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, 
 export type InitializeStateType = typeof initializeState
 type ActionsType = InferActionsTypes<typeof actions>
 
-export enum ResultCodes {
-    Success = 0,
-    Error = 1,
-}
 
-export type APIResponseType<D = {}, RC = ResultCodes> = {
+export type APIResponseType<D = {}> = {
     data: D
     statusText: string
 }
@@ -99,7 +95,6 @@ export const sendRecoveryEmail = (email: string) => (dispatch: Dispatch) => {
         }
     })
         .catch((e) => {
-            debugger
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
