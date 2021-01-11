@@ -41,7 +41,9 @@ function App() {
             {/*Отрисуется в случае если не один url не подойдет (´｡• ᵕ •｡)*/}
             <Route path={'/404'} render={() => <NotFound/>}/>
             <Redirect from={'*'} to={'/404'}/>
+
         </Switch>
+
     </div>
 }
 
