@@ -30,7 +30,7 @@ const Registration: React.FC<RegistrationPropsType> = () => {
 
     return <div className={style.wrapper}>
         <h1>Registration</h1>
-        {error ? <ErrorSnackBar errorMessage={error}/> : null}
+        {error && <ErrorSnackBar errorMessage={error}/>}
         <form className={style.registrForm}>
             <Input type={'text'} value={email} onChange={onChangeHandlerEmail} placeholder={'Email'}/>
             <Input type={'password'} value={password} onChange={onChangeHandlerPassword} placeholder={'Password'}/>
