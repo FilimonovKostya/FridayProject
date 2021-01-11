@@ -12,7 +12,7 @@ const AllComponents: React.FC<AllComponentsPropsType> = () => {
     return <div className={'allComponents'}>
         <Input/>
         <Button> Click me </Button>
-        <Checkbox/>
+        <Checkbox title={'Checkbox'}/>
         <RadioInput/>
         <RadioInput/>
         <SelectInput/>

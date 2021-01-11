@@ -1,20 +1,19 @@
-import React from "react";
-import style from "./Checkbox.module.css";
+import React, {ChangeEvent} from 'react';
+import style from './Checkbox.module.css';
 
 
-type CheckboxPropsType = {};
+type CheckboxPropsType = {
+    title: string,
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+};
 
-const Checkbox: React.FC<CheckboxPropsType> = () => {
+const Checkbox: React.FC<CheckboxPropsType> = ({title, onChange}) => {
 
-    const [checked, setChecked] = React.useState<boolean>(false)
-    const onChangeHandler = () => setChecked(!checked)
-
-    console.log(checked)
 
     return <div className={style.container}>
         <label className={style.pureMaterialCheckbox}>
-            <input type={"checkbox"} className={style.input} checked={checked} onChange={onChangeHandler}/>
-            <span className={style.spanClassName}>  Checkbox  </span>
+            <input type={'checkbox'} className={style.input} onChange={onChange}/>
+            <span className={style.spanClassName}>  {title}  </span>
         </label>
 
 
