@@ -1,13 +1,13 @@
 import React from 'react';
-import style from "./Password.module.css";
+import style from "./ResetPassword.module.css";
 
 
 type PasswordPropsType = {}
 
-const Password: React.FC<PasswordPropsType> = () => {
+const ResetPassword: React.FC<PasswordPropsType> = () => {
     return <div className={style.wrapper}>
         <h1>Password</h1>
     </div>
 };
 
-export default Password;
+export default ResetPassword;

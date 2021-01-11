@@ -7,7 +7,7 @@ import AllComponents from "./AllComponents";
 import Login from "./Components/Login/Login";
 import Registration from "./Components/Registration/Registration";
 import Profile from "./Components/Profile/Profile";
-import Password from "./Components/Passwords/Password";
+import ResetPassword from "./Components/Passwords/ResetPassword/ResetPassword";
 import PasswordRecovery from "./Components/Passwords/PasswordRecovery/PasswordRecovery";
 import {useSelector} from "react-redux";
 import {RootStateType} from "./Redux/store";
@@ -34,7 +34,7 @@ function App() {
             <Route path={'/'} exact render={() => <AllComponents/>}/>
             <Route path={path.LOGIN} exact render={() => <Login/>}/>
             <Route path={path.REG} exact render={() => <Registration/>}/>
-            <Route path={path.PASSWORD} exact render={() => <Password/>}/>
+            <Route path={path.PASSWORD} exact render={() => <ResetPassword/>}/>
             <Route path={path.PASS_REC} exact render={() => <PasswordRecovery/>}/>
             <Route path={path.PROFILE} exact render={() => <Profile/>}/>
             <Route path={path.ALL_COMPONENTS} exact render={() => <AllComponents/>}/>
