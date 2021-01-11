@@ -28,3 +28,4 @@ export const setAppStatusAC = (status: RequestStatusType) => ({type: 'SET-APP-ST
 
 export const setAppErrorAC = (error: string | null) => ({type: 'SET-APP-ERROR', error} as const)
 
+//test comit
