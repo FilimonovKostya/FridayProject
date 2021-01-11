@@ -1,17 +1,16 @@
 import {Dispatch} from "redux";
 import {registrationAPI} from "../../Api/api-regestration";
+import {setAppErrorAC, setAppStatusAC} from "./appReducer";
 
 //Types
 type ActionsType = ReturnType<typeof setRegistrationAC>
     | ReturnType<typeof setRedirectProfileAC>
-    | ReturnType<typeof setRegistrationStatusAC>
-    | ReturnType<typeof setRegistrationErrorAC>
+    | ReturnType<typeof setAppStatusAC>
+    | ReturnType<typeof setAppErrorAC>
 type InitialStateType = {
     password: string
     email: string
-    isLoading: boolean
     isRedirect: boolean
-    error: string | null
 }
 export type RegistrationRequestType = {
     email: string
@@ -49,9 +48,7 @@ export type ErrorResponseType = {
 const initialState: InitialStateType = {
     password: '',
     email: '',
-    isLoading: false,
     isRedirect: false,
-    error: null
 }
 
 //Reducer
@@ -61,11 +58,6 @@ export const registrationReducer = (state = initialState, actions: ActionsType):
             return {...state, ...actions.regData}
         case "SET-REDIRECT-PROFILE":
             return {...state, isRedirect: actions.isRedirect}
-        case "SET-REGISTRATION-STATUS":
-            return {...state, isLoading: actions.isLoading}
-        case "SET-REGISTRATION-ERROR":
-            return {...state, error: actions.error}
-
         default:
             return state
     }
@@ -76,36 +68,36 @@ export const setRegistrationAC = (regData: RegistrationRequestType) => ({type: '
 
 export const setRedirectProfileAC = (isRedirect: boolean) => ({type: 'SET-REDIRECT-PROFILE', isRedirect} as const)
 
-export const setRegistrationStatusAC = (isLoading: boolean) => ({type: 'SET-REGISTRATION-STATUS', isLoading} as const)
-
-export const setRegistrationErrorAC = (error: string | null) => ({type: 'SET-REGISTRATION-ERROR', error} as const)
 
 //Thunk
 export const registrationTC = (regData: RegistrationRequestType) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     registrationAPI().registration({...regData})
         .then((res) => {
-            dispatch(setRegistrationStatusAC(true))
+            dispatch(setAppStatusAC('succeeded'))
             const dataAboutUser = res.data.addedUser
             // Если не происходит редирект после того как зарегались проблема ниже . Этот код считает длинну объекта ,всего там 10 ключей. Смотрел
             if (Object.keys(dataAboutUser).length === 10) {
+                // debugger
                 dispatch(setRegistrationAC({...regData}))
                 dispatch(setRedirectProfileAC(true))
-                dispatch(setRegistrationStatusAC(false))
+                dispatch(setAppStatusAC('succeeded'))
             }
         })
         .catch((error: ErrorResponseType) => {
-            dispatch(setRegistrationStatusAC(true))
+            dispatch(setAppStatusAC('loading'))
             if (error.response.data.in === 'createUser') {
-                dispatch(setRegistrationErrorAC(error.response.data.error))
-                dispatch(setRegistrationStatusAC(false))
+                dispatch(setAppErrorAC(error.response.data.error))
+                dispatch(setAppStatusAC('failed'))
             }
             if (!error.response.data.isEmailValid) {
-                dispatch(setRegistrationErrorAC(error.response.data.error))
-                dispatch(setRegistrationStatusAC(false))
+                dispatch(setAppErrorAC(error.response.data.error))
+                dispatch(setAppStatusAC('failed'))
             }
             if (!error.response.data.isPassValid) {
-                error.response.data.passwordRegExp && dispatch(setRegistrationErrorAC(error.response.data.passwordRegExp))
-                dispatch(setRegistrationStatusAC(false))
+                error.response.data.passwordRegExp && dispatch(setAppErrorAC(error.response.data.passwordRegExp))
+                dispatch(setAppStatusAC('failed'))
             }
         })
 }
+

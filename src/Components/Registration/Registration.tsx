@@ -17,7 +17,7 @@ const Registration: React.FC<RegistrationPropsType> = () => {
     const [email, setEmail] = useState<string>('xranitelinadejd@gmail.com')
     const [password, setPassword] = useState<string>('KOSTYA1234END.')
     const isRedirectProfile = useSelector<RootStateType, boolean>(state => state.registration.isRedirect)
-    const error = useSelector<RootStateType, string | null>(state => state.registration.error)
+    const error = useSelector<RootStateType, string | null>(state => state.app.error)
 
     const onChangeHandlerEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value), [])
     const onChangeHandlerPassword = useCallback((e: ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value), [])
