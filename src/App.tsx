@@ -12,6 +12,7 @@ import PasswordRecovery from "./Components/Passwords/PasswordRecovery/PasswordRe
 import {useSelector} from "react-redux";
 import {RootStateType} from "./Redux/store";
 import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
+import {RequestStatusType} from "./Redux/reducers/appReducer";
 
 export const path = {
     LOGIN: '/login',
@@ -24,16 +25,17 @@ export const path = {
 
 function App() {
 
-    const statusRegistration = useSelector<RootStateType, boolean>(state => state.registration.isLoading)
-
+    const statusApp = useSelector<RootStateType, RequestStatusType>(state => state.app.statusResponse)
+// debugger
     return <div>
         <NavBar/>
-        {statusRegistration ? <ProgressBar/> : null}
+
+        {statusApp === 'loading' ? <ProgressBar/> : null}
         {/* Switch нужен чтобы в url адрессе отображалось только то что нужно(＾▽＾)*/}
         <Switch>
             <Route path={'/'} exact render={() => <AllComponents/>}/>
             <Route path={path.LOGIN} exact render={() => <Login/>}/>
-            <Route path={path.REG} exact render={() => <Registration/>}/>
+            <Route path={path.REG} exact render={() => <Registration statusApp={statusApp}/>}/>
             <Route path={path.PASSWORD} exact render={() => <ResetPassword/>}/>
             <Route path={path.PASS_REC} exact render={() => <PasswordRecovery/>}/>
             <Route path={path.PROFILE} exact render={() => <Profile/>}/>
