@@ -35,7 +35,7 @@ function App() {
         <Switch>
             <Route path={'/'} exact render={() => <AllComponents/>}/>
             <Route path={path.LOGIN} exact render={() => <Login/>}/>
-            <Route path={path.REG} exact render={() => <Registration/>}/>
+            <Route path={path.REG} exact render={() => <Registration statusApp={statusApp}/>}/>
             <Route path={path.PASSWORD} exact render={() => <ResetPassword/>}/>
             <Route path={path.PASS_REC} exact render={() => <PasswordRecovery/>}/>
             <Route path={path.PROFILE} exact render={() => <Profile/>}/>

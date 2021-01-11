@@ -8,10 +8,13 @@ import {registrationTC} from "../../Redux/reducers/registrationReducer";
 import {Input} from '../SuperComponents/Input/Input';
 import Button from "../SuperComponents/Button/Button";
 import ErrorSnackBar from "../ErrorSnackBar/ErrorSnackBar";
+import {RequestStatusType} from "../../Redux/reducers/appReducer";
 
-type RegistrationPropsType = {}
+type RegistrationPropsType = {
+    statusApp:RequestStatusType
+}
 
-const Registration: React.FC<RegistrationPropsType> = () => {
+const Registration: React.FC<RegistrationPropsType> = (props) => {
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>('xranitelinadejd@gmail.com')
@@ -34,7 +37,7 @@ const Registration: React.FC<RegistrationPropsType> = () => {
         <form className={style.registrForm}>
             <Input type={'text'} value={email} onChange={onChangeHandlerEmail} placeholder={'Email'}/>
             <Input type={'password'} value={password} onChange={onChangeHandlerPassword} placeholder={'Password'}/>
-            <Button onClick={onClickHandler}> Registration </Button>
+            <Button onClick={onClickHandler} disabled={props.statusApp === 'loading'}> Registration </Button>
         </form>
     </div>
 };
