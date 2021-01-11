@@ -9,7 +9,7 @@ type ProgressBarTextPropsType = {
 export const ProgressBar: React.FC<ProgressBarTextPropsType> = () => {
 
     const loadingValue = {
-        width: '70%'
+        width: '100%'
     }
 
     return <div className={style.progress}>

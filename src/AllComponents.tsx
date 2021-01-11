@@ -9,7 +9,6 @@ import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
 type AllComponentsPropsType = {}
 
 const AllComponents: React.FC<AllComponentsPropsType> = () => {
-
     return <div className={'allComponents'}>
         <Input/>
         <Button> Click me </Button>
