@@ -4,13 +4,15 @@ import {registrationReducer} from "./reducers/registrationReducer";
 import {profileReducer} from "./reducers/profileReducer";
 import thunk from "redux-thunk";
 import {passwordRecoveryReducer} from "./reducers/passwordRecovery-reducer";
+import {appReducer} from "./reducers/appReducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
     passwordRecovery: passwordRecoveryReducer,
     // createPassword: createNewPasswordReducer,todo:add this thunk!!!create and recover - different pages!
     registration:registrationReducer,
-    profile:profileReducer
+    profile:profileReducer,
+    app:appReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
