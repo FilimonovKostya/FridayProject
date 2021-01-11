@@ -16,9 +16,10 @@ import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
 export const path = {
     LOGIN: '/login',
     REG: '/registration',
-    PASSWORD: '/newPassword',
+    PASSWORD: '/newPassword/:token?',
     PASS_REC: '/passwordRecovery',
     PROFILE: '/profile',
+    ALL_COMPONENTS: '/allComponents',
 }
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path={path.PASSWORD} exact render={() => <Password/>}/>
             <Route path={path.PASS_REC} exact render={() => <PasswordRecovery/>}/>
             <Route path={path.PROFILE} exact render={() => <Profile/>}/>
+            <Route path={path.ALL_COMPONENTS} exact render={() => <AllComponents/>}/>
             {/*Отрисуется в случае если не один url не подойдет (´｡• ᵕ •｡)*/}
             <Route path={'/404'} render={() => <NotFound/>}/>
             <Redirect from={'*'} to={'/404'}/>
@@ -44,5 +46,3 @@ function App() {
 }
 
 export default App;
-
-// Создал ветку - тест
