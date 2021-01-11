@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk";
 import {RootStateType} from "../store";
 import {Action, Dispatch} from "redux";
-import axios from "axios";
+import {recoveryAPI} from "../../Api/api-recovery-password";
 
 //Action Creator type
 type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
@@ -13,38 +13,7 @@ export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, 
 //Get auto types
 type ActionsType = InferActionsTypes<typeof actions>
 
-//Response type
-export type APIResponseType<D = {}> = {
-    data: D
-    statusText: string
-}
 
-export type PasswordRecoveryType = {
-    answer: boolean
-    html: boolean
-    info: string
-    success: boolean
-}
-
-//Base API settings
-const axiosInstance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-})
-
-export const recoveryAPI = {
-    recover(email: string) {
-        const promise = axiosInstance.post<APIResponseType<PasswordRecoveryType>>('/auth/forgot', {
-            email: email,
-            from: "test-front-admin <serega.kuharionok@yandex.ru>",
-            message: `<div style="background-color: #00ff00; padding: 15px">
-                            password recovery link: 
-                     <a href='http://localhost:3000/FridayProject#/newPassword/$token$'>Click</a>
-                     </div>`
-        })
-        return promise;
-    },
-}
 
 let initializeState = {
     status: '',

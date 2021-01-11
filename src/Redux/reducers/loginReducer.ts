@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {authAPI} from '../../Components/Login/api-login';
+import {authAPI} from '../../Api/api-login';
 
 type InitialStateType = {
     user: UserDataType | {},

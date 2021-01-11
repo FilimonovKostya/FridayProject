@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {registrationAPI} from "../../Components/Registration/Registration";
+import {registrationAPI} from "../../Api/api-regestration";
 
 //Types
 type ActionsType = ReturnType<typeof setRegistrationAC>
@@ -65,6 +65,7 @@ export const registrationReducer = (state = initialState, actions: ActionsType):
             return {...state, isLoading: actions.isLoading}
         case "SET-REGISTRATION-ERROR":
             return {...state, error: actions.error}
+
         default:
             return state
     }
