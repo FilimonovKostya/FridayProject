@@ -1,0 +1,46 @@
+.recoveryPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.formWrapper {
+    width: 300px;
+    padding: 47px 30px;
+    text-align: center;
+}
+
+.pageName {
+    color: #262525;
+    font-size: 30px;
+}
+
+.title {
+    color: #676565;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.statusMessage {
+    font-size: 14px;
+    margin-bottom: 14px;
+
+    font-weight: bold;
+    text-align: center;
+    color: #dc4734;
+}
+
+
+.loginLink {
+    padding-top: 28px;
+    margin-bottom: 0;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #dc4734;
+}

@@ -7,12 +7,12 @@ import AllComponents from "./AllComponents";
 import Login from "./Components/Login/Login";
 import Registration from "./Components/Registration/Registration";
 import Profile from "./Components/Profile/Profile";
-import ResetPassword from "./Components/Passwords/ResetPassword/ResetPassword";
-import PasswordRecovery from "./Components/Passwords/PasswordRecovery/PasswordRecovery";
 import {useSelector} from "react-redux";
 import {RootStateType} from "./Redux/store";
 import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
 import {RequestStatusType} from "./Redux/reducers/appReducer";
+import {ResetPassword} from './Components/Password/ResetPassword';
+import {PasswordRecovery} from './Components/Password/PasswordRecovery';
 
 export const path = {
     LOGIN: '/login',
