@@ -14,6 +14,7 @@ import {RootStateType} from "./Redux/store";
 import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
 import {RequestStatusType} from "./Redux/reducers/appReducer";
 
+
 export const path = {
     LOGIN: '/login',
     REG: '/registration',
@@ -29,7 +30,6 @@ function App() {
 // debugger
     return <div>
         <NavBar/>
-
         {statusApp === 'loading' ? <ProgressBar/> : null}
         {/* Switch нужен чтобы в url адрессе отображалось только то что нужно(＾▽＾)*/}
         <Switch>
@@ -43,7 +43,6 @@ function App() {
             {/*Отрисуется в случае если не один url не подойдет (´｡• ᵕ •｡)*/}
             <Route path={'/404'} render={() => <NotFound/>}/>
             <Redirect from={'*'} to={'/404'}/>
-
         </Switch>
 
     </div>
