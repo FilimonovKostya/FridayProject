@@ -1,16 +1,6 @@
-.recoveryPage {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    align-items: center;
-    box-sizing: border-box;
-    margin: 0 auto;
-}
-
 .formWrapper {
-    width: 300px;
-    padding: 47px 30px;
+    max-width: 400px;
+    padding: 0 30px;
     text-align: center;
 }
 
@@ -19,7 +9,8 @@
     font-size: 30px;
 }
 
-.title {
+.title{
+    opacity: 0.6;
     color: #676565;
     width: 100%;
     font-size: 14px;
@@ -39,8 +30,16 @@
 .loginLink {
     padding-top: 28px;
     margin-bottom: 0;
-
+    opacity: 0.6;
     font-size: 16px;
     font-weight: bold;
-    color: #dc4734;
+    color: #676565;
+    text-decoration: none;
+    transition: ease-in 200ms;
 }
+
+.loginLink:hover {
+    opacity: 0.8;
+    color: #262525;
+}
+
