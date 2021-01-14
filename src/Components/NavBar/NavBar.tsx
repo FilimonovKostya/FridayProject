@@ -2,6 +2,8 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import style from './NavBar.module.css'
 import {path} from "../../App";
+import Logout from '../Login/Logout';
+
 
 type NavBarPropsType = {}
 
@@ -21,6 +23,7 @@ const NavBar: React.FC<NavBarPropsType> = (props) => {
                 <li><NavLink to={path.PASSWORD}> New password </NavLink></li>
                 <li><NavLink to={path.PROFILE}> Profile </NavLink></li>
                 <li><NavLink to={'/'}> All components </NavLink></li>
+                <li><Logout/></li>
             </ul>
         </div>
         <div className={`${style.main} ${style.center}`}>
