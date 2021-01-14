@@ -1,14 +1,15 @@
 import {Dispatch} from 'redux';
 import {authAPI} from '../../Api/api-login';
+import {setAppErrorAC, setAppStatusAC} from './appReducer';
 
 type InitialStateType = {
     user: UserDataType | {},
     isAuth: boolean
 }
-type UserDataType = {
-    _id: string | null,
-    email: string | null,
-    name: string | null,
+export type UserDataType = {
+    _id: string,
+    email: string,
+    name: string,
     avatar: string | null,
     publicCardPacksCount: number,
     created: Date,
@@ -19,7 +20,7 @@ type UserDataType = {
 }
 const initialState = {
     user: {},
-    isAuth: false
+    isAuth: false,
 }
 
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -27,8 +28,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
         case 'SET_USER_DATA':
             return {
                 ...state,
-                user: action.payload,
-                isAuth: true
+                ...action.payload,
             }
         default:
             return state
@@ -36,23 +36,42 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 }
 
 
-export const setAuthUserDataAC = (payload: InitialStateType) => ({type: 'SET_USER_DATA', payload}) as const
+    export const setAuthUserDataAC = (payload: InitialStateType) => ({type: 'SET_USER_DATA', payload}) as const
 
 
-export const getAuthUserData = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
-    authAPI.login(email, password, rememberMe)
-        .then(response => {
-                console.log(response.data)
-                dispatch(setAuthUserDataAC(response.data))
-            }
-        ).catch((e) => {
-        const error = e.response ? e.response.data.error:(e.message+", more details in the console")
-        console.log(error)
-    })
-}
+    export const getAuthUserData = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setAppStatusAC('loading'))
+        authAPI.login(email, password, rememberMe)
+            .then(response => {
+                    dispatch(setAppStatusAC('succeeded'))
+                    dispatch(setAuthUserDataAC({user: response.data, isAuth: true}))
+                }
+            ).catch((e) => {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
+            dispatch(setAppErrorAC(error))
+            dispatch(setAppStatusAC('failed'))
+        })
+    }
+    export const deleteAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setAppStatusAC('loading'))
+        authAPI.logout()
+            .then(response => {
+                    dispatch(setAppStatusAC('succeeded'))
+                    dispatch(setAuthUserDataAC({user: {}, isAuth: false}))
+                    alert(response.data.info)
+                }
+            ).catch((e) => {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
+            dispatch(setAppStatusAC('failed'))
+            alert(error)
+        })
+    }
+
+    export type setAuthUserDataType = ReturnType<typeof setAuthUserDataAC>
 
 
-export type setAuthUserDataType = ReturnType<typeof setAuthUserDataAC>
+    type ActionsType =
+        | setAuthUserDataType
+        | ReturnType<typeof setAppStatusAC>
+        | ReturnType<typeof setAppErrorAC>
 
-type ActionsType =
-    |  setAuthUserDataType

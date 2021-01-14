@@ -10,7 +10,7 @@ export const authAPI = {
         //.data
     },
     logout() {
-        return instance.delete('auth/login')
+        return instance.delete('auth/me')
     }
 }
 
