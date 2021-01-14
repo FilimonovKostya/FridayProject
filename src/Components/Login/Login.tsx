@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import style from './Login.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../Redux/store';
@@ -13,7 +13,7 @@ import ErrorSnackBar from '../ErrorSnackBar/ErrorSnackBar';
 
 type LoginPropsType = {}
 
-const Login: React.FC<LoginPropsType> = () => {
+const Login: React.FC<LoginPropsType> = React.memo(() => {
     const dispatch = useDispatch()
     let isAuth = useSelector<RootStateType, boolean>(state => state.login.isAuth)
     let error = useSelector<RootStateType, string | null>(state => state.app.error)
@@ -24,13 +24,13 @@ const Login: React.FC<LoginPropsType> = () => {
     let [rememberMe, setRememberMe] = useState<boolean>(false)
 
 
-    let onclickEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)
-    let onclickPassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)
-    let onclickCheckbox = (e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.currentTarget.checked)
+    let onclickEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value), [setEmail])
+    let onclickPassword = useCallback((e: ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value),[setPassword])
+    let onclickCheckbox = useCallback((e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.currentTarget.checked),[setRememberMe])
 
-    let onclickHandler = () => {
+    let onclickHandler = useCallback(() => {
         dispatch(getAuthUserData(email, password, rememberMe))
-    }
+    },[email, password, rememberMe,dispatch])
     if (isAuth) {
         return <Redirect to={path.PROFILE}/>
     }
@@ -54,6 +54,6 @@ const Login: React.FC<LoginPropsType> = () => {
         </span>
 
     </div>
-};
+});
 
 export default Login;
