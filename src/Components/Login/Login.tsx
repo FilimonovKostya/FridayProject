@@ -2,11 +2,13 @@ import React, {ChangeEvent, useState} from 'react';
 import style from './Login.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStateType} from '../../Redux/store';
-import {Redirect} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import {getAuthUserData} from '../../Redux/reducers/loginReducer';
 import Input from '../SuperComponents/Input/Input';
 import Checkbox from '../SuperComponents/CheckBox/Checkbox';
 import Button from '../SuperComponents/Button/Button';
+import {path} from '../../App';
+import ErrorSnackBar from '../ErrorSnackBar/ErrorSnackBar';
 
 
 type LoginPropsType = {}
@@ -14,6 +16,8 @@ type LoginPropsType = {}
 const Login: React.FC<LoginPropsType> = () => {
     const dispatch = useDispatch()
     let isAuth = useSelector<RootStateType, boolean>(state => state.login.isAuth)
+    let error = useSelector<RootStateType, string | null>(state => state.app.error)
+    let statusResponse = useSelector<RootStateType, string>(state => state.app.statusResponse)
 
     let [email, setEmail] = useState<string>('')
     let [password, setPassword] = useState<string>('')
@@ -25,14 +29,14 @@ const Login: React.FC<LoginPropsType> = () => {
     let onclickCheckbox = (e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.currentTarget.checked)
 
     let onclickHandler = () => {
-        console.log(email, password, rememberMe)
         dispatch(getAuthUserData(email, password, rememberMe))
     }
     if (isAuth) {
-        return <Redirect to={'./profile'}/>
+        return <Redirect to={path.PROFILE}/>
     }
     return <div className={style.wrapper}>
-        <h1>SIGN IN</h1>
+        <h1>Sign In</h1>
+        {error && <ErrorSnackBar errorMessage={error}/>}
         <form className={style.loginForm}>
             <Input type={'email'}
                    placeholder={'Enter email'}
@@ -42,9 +46,12 @@ const Login: React.FC<LoginPropsType> = () => {
                    onChange={onclickPassword}/>
             <Checkbox title={'Remember me'}
                       onChange={onclickCheckbox}/>
-            <Button onClick={onclickHandler}> SIGN IN </Button>
+            <Button disabled={statusResponse === 'loading'} onClick={onclickHandler}> SIGN IN </Button>
         </form>
-
+        <span>
+            <NavLink to={path.PASS_REC}> Forget password</NavLink>
+            <NavLink to={path.REG}> Registration </NavLink>
+        </span>
 
     </div>
 };

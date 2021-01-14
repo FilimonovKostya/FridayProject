@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {registrationAPI} from "../../Api/api-regestration";
-import {setAppErrorAC, setAppStatusAC} from "./appReducer";
+import {setAppErrorAC, setAppStatusAC} from './appReducer';
+
 
 //Types
 type ActionsType = ReturnType<typeof setRegistrationAC>
