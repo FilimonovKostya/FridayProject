@@ -28,7 +28,7 @@ const Registration: React.FC<RegistrationPropsType> = (props) => {
     const onClickHandler = () => (dispatch(registrationTC({email, password})))
 
     if (isRedirectProfile) {
-        return <Redirect to={path.PROFILE}/>
+        return <Redirect to={path.LOGIN}/>
     }
 
     return <div className={style.wrapper}>
