@@ -1,4 +1,5 @@
 import {instance} from './api';
+import {CartUpdateType} from '../AllComponents';
 
 //Global response
 export type APIResponseType<D = {}> = {
@@ -31,13 +32,19 @@ export type CartsType = {
     __v: number
 }
 
-type CartsPackType = {
+type CartsPackTypeFull = {
     name: string // если не отправить будет таким "no Name"
     path: string // если не отправить будет такой "/def"
     grade: number // не обязателен
     shots: number // не обязателен
     rating: number // не обязателен
     deckCover: string // не обязателен
+    private: boolean // если не отправить будет такой false
+    type: string // если не отправить будет таким "pack"
+}
+
+type CartsPackTypeShort = {
+    name: string // если не отправить будет таким "no Name"
     private: boolean // если не отправить будет такой false
     type: string // если не отправить будет таким "pack"
 }
@@ -68,32 +75,17 @@ type CartType = {
     _id: string
 }
 
-
-export const cartAPI = {
-    //cart pack
-    getCarts() {
+export const cartsPackAPI = {
+    getCards() {
         return instance.get<APIResponseType<GetCartsPackResponseType>>('cards/pack');
     },
-
-    createCartsPack(cartPack: CartsPackType) {
-        return instance.post<APIResponseType>('cards/pack', {cartPack});
+    createCardsPack(cardsPack: CartsPackTypeShort) {
+        return instance.post<APIResponseType>('cards/pack', {cardsPack});
     },
-//todo:create beautiful name for this request!
-    xxxCartsPack(id: string, name?: string) {
-        return instance.put<APIResponseType>('cards/pack', {
-            _id: id,
-            name //"new name" // не обязательно
-        });
+    updateCartsPack(cardsPack:CartUpdateType) {
+        return instance.put<APIResponseType>('cards/pack', {cardsPack});
     },
-
-    deleteCartsPack(id: string) {
+    deleteCardsPack(id: string) {
         return instance.delete<APIResponseType>(`cards/pack?id=${id}`);
-    },
-
-    //cart
-    getCart() {
-        return instance.get<APIResponseType<GetCartsResponseType>>('cards/card');
-    },
-
-
+    }
 }
