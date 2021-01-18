@@ -11,7 +11,6 @@ const Profile: React.FC<ProfilePropsType> = () => {
     //let profileData = useSelector<RootStateType, UserDataType | {}>(state => state.login.user)
     let isAuth = useSelector<RootStateType, boolean>(state => state.login.isAuth)
 
-
     return <div className={style.wrapper}>
         {!isAuth ? <UserIsNotAuthorized/>
             :
