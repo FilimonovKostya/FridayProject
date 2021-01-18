@@ -5,7 +5,8 @@ import Checkbox from "./Components/SuperComponents/CheckBox/Checkbox";
 import RadioInput from "./Components/SuperComponents/RadioInput/RadioInput";
 import SelectInput from "./Components/SuperComponents/SelectInput/SelectInput";
 import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
-import {cartsPackAPI} from './Api/api-cart';
+import {cardsPackAPI} from './Api/api-cart';
+import SearchForm from './Components/SuperComponents/SearchForm/SearchForm';
 
 type AllComponentsPropsType = {}
 
@@ -31,24 +32,36 @@ const AllComponents: React.FC<AllComponentsPropsType> = () => {
     }
 
     const getRequest = () => {
-        cartsPackAPI.getCards()
+        cardsPackAPI.getCardsPack()
     }
    //have to transfer object
     const createRequest = () => {
-        cartsPackAPI.createCardsPack(cartObj)
+        cardsPackAPI.createCardsPack(cartObj)
     }
 
     //have to get actual id! and name if you want...you can see if after create Pack
     const updateRequest = () => {
-        cartsPackAPI.updateCartsPack(cardUpdateObj)
+        cardsPackAPI.updateCardsPack(cardUpdateObj)
     }
    //have to get actual id! you can see if after create Pack
     const deleteRequest = () => {
-        cartsPackAPI.deleteCardsPack(packId)
+        cardsPackAPI.deleteCardsPack(packId)
+    }
+
+
+    //this will be thunk, this is test request
+    const onSendRequest = (value:string) => {
+        cardsPackAPI.getCardsPack(value)
     }
 
 
     return <div className={'allComponents'}>
+        <SearchForm formName='Search'
+                    placeholder='write something'
+                    callback={onSendRequest}
+                    buttonName='Search'
+                    btnDisabled={false}
+        />
         <Input/>
         <Button> Click me </Button>
         <Checkbox title={'Checkbox'}/>
