@@ -90,10 +90,36 @@ export const cartAPI = {
         return instance.delete<APIResponseType>(`cards/pack?id=${id}`);
     },
 
-    //cart
-    getCart() {
-        return instance.get<APIResponseType<GetCartsResponseType>>('cards/card');
+}
+//cards
+export const APIсards = {
+    getCards(cardsPackId: string, lang?: string, question?: string, min?: number, max?: number, sortCards?: string, page?: number, pageCount?: number) {
+        return instance.get<APIResponseType<GetCartsResponseType>>(`cards/card/?cardAnswer=${lang}&cardQuestion=${question}&cardsPack_id=${cardsPackId}&min=${min}&max=${max}&sortCards=${sortCards}&page=${page}&pageCount=${pageCount}`);
     },
 
+    addCard(card: AddCardModel) {
+        return instance.post<APIResponseType<CartsType>>('cards/card', {card});
+    },
+    deleteCard(cardId: string) {
+        return instance.delete(`cards/card/?id=${cardId}`);
+    },
+    updateCard(card: UpdateCardModel) {
+        return instance.put('cards/card', {card});
+    },
 
+}
+
+type UpdateCardModel = { id: string, question?: string, comments?: string }
+type AddCardModel = {
+    cardsPack_id: string,
+    question?: string,
+    answer?: string,
+    grade?: number,
+    shots?: number,
+    rating?: 0,
+    answerImg?: string,
+    questionImg?: string
+    questionVideo?: string,
+    answerVideo?: string,
+    type?: string
 }
