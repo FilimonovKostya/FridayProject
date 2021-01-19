@@ -1,4 +1,5 @@
 import {instance} from './api';
+import {CartUpdateType} from '../AllComponents';
 
 //Global response // То ли я тупой или что-то не так делаю , не тот респонс
 export type APIResponseType<D = {}> = {
@@ -7,8 +8,8 @@ export type APIResponseType<D = {}> = {
 }
 
 //Response types
-export type GetCartsPackResponseType = {
-    cartArray: CartsType[]
+export type GetCardsPackResponseType = {
+    cartArray: CardsType[]
     cardPacksTotalCount: number // количество колод
     maxCardsCount: number
     minCardsCount: number
@@ -16,7 +17,7 @@ export type GetCartsPackResponseType = {
     pageCount: number // количество элементов на странице
 }
 
-export type CartsType = {
+export type CardsType = {
     _id: string
     user_id: string
     name: string
@@ -31,13 +32,19 @@ export type CartsType = {
     __v: number
 }
 
-type CartsPackType = {
+// type CartsPackTypeFull = {
+//     name: string // если не отправить будет таким "no Name"
+//     path: string // если не отправить будет такой "/def"
+//     grade: number // не обязателен
+//     shots: number // не обязателен
+//     rating: number // не обязателен
+//     deckCover: string // не обязателен
+//     private: boolean // если не отправить будет такой false
+//     type: string // если не отправить будет таким "pack"
+// }
+
+type CardsPackTypeShort = {
     name: string // если не отправить будет таким "no Name"
-    path: string // если не отправить будет такой "/def"
-    grade: number // не обязателен
-    shots: number // не обязателен
-    rating: number // не обязателен
-    deckCover: string // не обязателен
     private: boolean // если не отправить будет такой false
     type: string // если не отправить будет таким "pack"
 }
@@ -68,32 +75,17 @@ type CartType = {
     _id: string
 }
 
-
-export const cartAPI = {
-    //cart pack
-    getCarts() {
-        return instance.get<APIResponseType<GetCartsPackResponseType>>('cards/pack');
+export const cardsPackAPI = {
+    getCardsPack(packName?: null | string, min: number = 3, max: number = 9, page: number = 1, pageCount: number = 4) {
+        return instance.get<APIResponseType<GetCardsPackResponseType>>(`cards/pack?packName=${packName}&min=${min}&max=${max}&page=${page}&pageCount=${pageCount}`);
     },
-
-    createCartsPack(cartPack: CartsPackType) {
-        return instance.post<APIResponseType>('cards/pack', {cartPack});
+    createCardsPack(cardsPack: CardsPackTypeShort) {
+        return instance.post<APIResponseType>('cards/pack', {cardsPack});
     },
-//todo:create beautiful name for this request!
-    xxxCartsPack(id: string, name?: string) {
-        return instance.put<APIResponseType>('cards/pack', {
-            _id: id,
-            name //"new name" // не обязательно
-        });
+    updateCardsPack(cardsPack: CartUpdateType) {
+        return instance.put<APIResponseType>('cards/pack', {cardsPack});
     },
-
-    deleteCartsPack(id: string) {
+    deleteCardsPack(id: string) {
         return instance.delete<APIResponseType>(`cards/pack?id=${id}`);
-    },
-
-    //cart
-    getCart() {
-        return instance.get<APIResponseType<GetCartsResponseType>>('cards/card');
-    },
-
-
+    }
 }
