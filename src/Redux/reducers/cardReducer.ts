@@ -63,7 +63,7 @@ export const setCardAC = (cards: CardsResponseType[]) => ({type: 'SET-CARDS', ca
 export const setCardTC = () => (dispatch: Dispatch<ActionsType>) => {
     cardAPI.getCardsAPI()
         .then((res) => {
-            debugger
+
             const stupidData = res.data.cardPacks
             dispatch(setCardAC([...stupidData]))
             console.log([...stupidData])
