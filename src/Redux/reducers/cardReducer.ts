@@ -1,8 +1,8 @@
 //Api
 import {instance} from "../../Api/api";
-import {APIResponseType} from "../../Api/api-cart";
 //Types
 import {Dispatch} from "redux";
+import {cardsPackAPI} from "../../Api/api-cart";
 
 export const cardAPI = {
     getCardsAPI() {
@@ -61,10 +61,10 @@ export const cardReducer = (state = initialState, actions: ActionsType): Initial
 export const setCardAC = (cards: CardsResponseType[]) => ({type: 'SET-CARDS', cards} as const)
 //Thunks
 export const setCardTC = () => (dispatch: Dispatch<ActionsType>) => {
-    cardAPI.getCardsAPI()
+    cardsPackAPI.getCardsPack()
         .then((res) => {
-
-            const stupidData = res.data.cardPacks
+            debugger
+            const stupidData = res.data
             dispatch(setCardAC([...stupidData]))
             console.log([...stupidData])
         })
