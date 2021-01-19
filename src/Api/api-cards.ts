@@ -1,15 +1,4 @@
 import {instance} from './api';
-import {CartUpdateType} from '../AllComponents';
-
-//Global response // То ли я тупой или что-то не так делаю , не тот респонс
-
-//Global response
-export type APIResponseType<D = {}> = {
-    data: D
-    statusText: string
-}
-
-//Response types
 
 export type CardsType = {
     _id: string
@@ -44,11 +33,11 @@ type GetCartsResponseType = {
 
 export const APIсards = {
     getCards(cardsPackId: string, lang?: string, question?: string, min?: number, max?: number, sortCards?: string, page?: number, pageCount?: number) {
-        return instance.get<APIResponseType<GetCartsResponseType>>(`cards/card/?cardAnswer=${lang}&cardQuestion=${question}&cardsPack_id=${cardsPackId}&min=${min}&max=${max}&sortCards=${sortCards}&page=${page}&pageCount=${pageCount}`);
+        return instance.get(`cards/card/?cardAnswer=${lang}&cardQuestion=${question}&cardsPack_id=${cardsPackId}&min=${min}&max=${max}&sortCards=${sortCards}&page=${page}&pageCount=${pageCount}`);
     },
 
     addCard(card: AddCardModel) {
-        return instance.post<APIResponseType<CardsType>>('cards/card', {card});
+        return instance.post('cards/card', {card});
     },
     deleteCard(cardId: string) {
         return instance.delete(`cards/card/?id=${cardId}`);

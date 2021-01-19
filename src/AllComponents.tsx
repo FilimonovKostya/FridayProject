@@ -5,9 +5,9 @@ import Checkbox from "./Components/SuperComponents/CheckBox/Checkbox";
 import RadioInput from "./Components/SuperComponents/RadioInput/RadioInput";
 import SelectInput from "./Components/SuperComponents/SelectInput/SelectInput";
 import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
-import {cardsPackAPI} from './Api/api-cards';
 import SearchForm from './Components/SuperComponents/SearchForm/SearchForm';
 import Card from "./Components/Card/Card";
+import {cardsPackAPI} from './Api/api-cardsPack';
 
 type AllComponentsPropsType = {}
 
