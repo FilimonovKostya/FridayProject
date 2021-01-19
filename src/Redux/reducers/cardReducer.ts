@@ -1,6 +1,6 @@
 //Api
 import {instance} from "../../Api/api";
-import {APIResponseType} from "../../Api/api-cart";
+import {APIResponseType} from "../../Api/api-cards";
 //Types
 import {Dispatch} from "redux";
 
