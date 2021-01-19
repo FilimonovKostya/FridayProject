@@ -42,7 +42,6 @@ type GetCartsResponseType = {
     packUserId: string //id юзера создавшего данную колоду
 }
 
-
 export const APIсards = {
     getCards(cardsPackId: string, lang?: string, question?: string, min?: number, max?: number, sortCards?: string, page?: number, pageCount?: number) {
         return instance.get<APIResponseType<GetCartsResponseType>>(`cards/card/?cardAnswer=${lang}&cardQuestion=${question}&cardsPack_id=${cardsPackId}&min=${min}&max=${max}&sortCards=${sortCards}&page=${page}&pageCount=${pageCount}`);
