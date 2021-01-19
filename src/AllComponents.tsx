@@ -18,7 +18,7 @@ const AllComponents: React.FC<AllComponentsPropsType> = () => {
         <RadioInput/>
         <SelectInput/>
         <ProgressBar/>
-        <Card/>
+        <Card />
     </div>
 }
 

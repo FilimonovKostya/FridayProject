@@ -1,6 +1,19 @@
+//Api
+import {instance} from "../../Api/api";
+import {APIResponseType} from "../../Api/api-cart";
 //Types
+import {Dispatch} from "redux";
+
+export const cardAPI = {
+    getCardsAPI() {
+        // То ли я тупой или что-то не так делаю , не тот респонс
+        return instance.get('cards/pack');
+    }
+}
+
+
 type ActionsType = ReturnType<typeof setCardAC>
-type CardsResponseType = {
+export type CardsResponseType = {
     _id: string
     user_id: string
     user_name: string
@@ -18,6 +31,7 @@ type CardsResponseType = {
     __v: number
 }
 type InitialStateType = {
+    // cardPacks: CardsResponseType[]
     cardPacks: CardsResponseType[]
     // page: number,
     // pageCount:number,
@@ -45,3 +59,13 @@ export const cardReducer = (state = initialState, actions: ActionsType): Initial
 
 //Actions
 export const setCardAC = (cards: CardsResponseType[]) => ({type: 'SET-CARDS', cards} as const)
+//Thunks
+export const setCardTC = () => (dispatch: Dispatch<ActionsType>) => {
+    cardAPI.getCardsAPI()
+        .then((res) => {
+            debugger
+            const stupidData = res.data.cardPacks
+            dispatch(setCardAC([...stupidData]))
+            console.log([...stupidData])
+        })
+}

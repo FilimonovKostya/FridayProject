@@ -1,6 +1,6 @@
 import {instance} from './api';
 
-//Global response
+//Global response // То ли я тупой или что-то не так делаю , не тот респонс
 export type APIResponseType<D = {}> = {
     data: D
     statusText: string
