@@ -6,7 +6,7 @@ import RadioInput from "./Components/SuperComponents/RadioInput/RadioInput";
 import SelectInput from "./Components/SuperComponents/SelectInput/SelectInput";
 import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
 import SearchForm from './Components/SuperComponents/SearchForm/SearchForm';
-import Card from "./Components/Card/Card";
+import CardPacks from "./Components/Card/CardPacks";
 import {cardsPackAPI} from './Api/api-cardsPack';
 
 type AllComponentsPropsType = {}
@@ -74,7 +74,7 @@ const AllComponents: React.FC<AllComponentsPropsType> = () => {
         <Button onClick={createRequest}>create Pack</Button>
         <Button onClick={updateRequest}>update Pack</Button>
         <Button onClick={deleteRequest}>delete Pack</Button>
-        <Card />
+        <CardPacks />
     </div>
 }
 
