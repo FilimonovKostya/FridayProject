@@ -1,9 +1,9 @@
 import {Dispatch} from 'redux';
-import {cardsPackAPI} from '../../Api/api-cardsPack';
+import {cardPacksAPI, CreateCardsPackType} from '../../Api/api-cardsPack';
 
-type ActionsType = ReturnType<typeof setCardAC>
+type ActionsType = ReturnType<typeof setCardPacksAC> | ReturnType<typeof setFilter>
 
-export type CardsPackType = {
+export type CardPacksType = {
     _id: string
     user_id: string
     user_name: string
@@ -21,13 +21,22 @@ export type CardsPackType = {
     __v: number
 }
 
+export type CardPacksFilterType = {
+    packName: string
+    min: number
+    max: number
+}
+
 const initialState = {
-    cardPacks: [] as CardsPackType[],
-    // page: 1,
-    // pageCount: 3,
-    // cardPacksTotalCount: 5,
-    // minCardsCount: 3,
-    // maxCardsCount: 5,
+    cardPacks: [] as CardPacksType[],
+    page: 1,
+    pageCount: 3,
+    cardPacksTotalCount: 5,
+    filter: {
+        packName: '',
+        min: 3,
+        max: 5,
+    } as CardPacksFilterType
     // token: '',
     // tokenDeathTime: ''
 } as const
@@ -38,20 +47,42 @@ export const cardsPackReducer = (state = initialState, actions: ActionsType): Ca
     switch (actions.type) {
         case 'SET-CARDS':
             return {...state, cardPacks: actions.cardPacks}
+        case 'SET-FILTER':
+            return {...state, filter: actions.payload.filter}
         default:
             return state
     }
 }
 
 //Actions
-export const setCardAC = (cardPacks: CardsPackType[]) => ({type: 'SET-CARDS', cardPacks} as const)
+export const setCardPacksAC = (cardPacks: CardPacksType[]) => ({type: 'SET-CARDS', cardPacks} as const)
+export const addCardPacksAC = (cardPacks: CardPacksType) => ({type: 'ADD-CARDS', cardPacks} as const)
+export const setFilter = (filter: CardPacksFilterType) => ({
+    type: 'SET-FILTER', payload: {
+        filter
+    }
+} as const)
 
 //Thunks
-export const setCardTC = () => (dispatch: Dispatch<ActionsType>) => {
-    cardsPackAPI.getCardsPack()
+export const getCardPacks = (filter: CardPacksFilterType, page?: number, pageCount?: number) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setFilter(filter))
+    cardPacksAPI.getCardPacks(filter, page, pageCount)
         .then((res) => {
+
             const cardsPackArray = res.data.cardPacks
-            dispatch(setCardAC(cardsPackArray))
+
+            dispatch(setCardPacksAC(cardsPackArray))
+            console.log(cardsPackArray)
+        })
+}
+
+export const addCardPacks = (cardPacks: CreateCardsPackType) => (dispatch: Dispatch<ActionsType>) => {
+    cardPacksAPI.createCardsPack(cardPacks)
+        .then((res) => {
+debugger
+            const cardsPackArray = res.data.cardPacks
+
+            dispatch(setCardPacksAC(cardsPackArray))
             console.log(cardsPackArray)
         })
 }

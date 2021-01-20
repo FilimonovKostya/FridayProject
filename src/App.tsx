@@ -13,7 +13,7 @@ import ProgressBar from "./Components/SuperComponents/ProgressBar/ProgressBar";
 import {RequestStatusType} from "./Redux/reducers/appReducer";
 import {ResetPassword} from './Components/Password/ResetPassword';
 import {PasswordRecovery} from './Components/Password/PasswordRecovery';
-import CardPacks from "./Components/Card/CardPacks";
+import CardPacks from "./Components/CardPacks/CardPacks";
 
 
 export const path = {
